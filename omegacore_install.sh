@@ -4,7 +4,7 @@ TMP_FOLDER=$(mktemp -d)
 CONFIG_FILE="omegacoin.conf"
 OMEGA_DAEMON="/usr/local/bin/omegacoind"
 OMEGA_CLI="/usr/local/bin/omegacoin-cli"
-OMEGA_REPO="https://github.com/omegacoinnetwork/omegacoin/releases/download/0.12.5/omegacoincore-0.12.5-linux64.tar.gz"
+OMEGA_REPO="https://github.com/omegacoinnetwork/omegacoin/releases/download/0.12.5.1/omagecoincore-0.12.5.1-linux64.zip"
 SENTINEL_REPO="https://github.com/omegacoinnetwork/sentinel.git"
 DEFAULTOMEGAPORT=7777
 DEFAULTOMEGAUSER="omega"
@@ -74,7 +74,7 @@ function prepare_system() {
 
 echo -e "Prepare the system to install Omega master node."
 apt-get update >/dev/null 2>&1
-DEBIAN_FRONTEND=noninteractive apt-get update > /dev/null 2>&1
+DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install unzip -y > /dev/null 2>&1
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y -qq upgrade >/dev/null 2>&1
 apt install -y software-properties-common >/dev/null 2>&1
 echo -e "${GREEN}Adding bitcoin PPA repository"
@@ -121,7 +121,7 @@ function compile_node() {
   echo -e "Download binaries. This may take some time. Press a key to continue."
   cd $TMP_FOLDER >/dev/null 2>&1
   wget -q $OMEGA_REPO >/dev/null 2>&1
-  tar xvzf $(echo $OMEGA_REPO | awk -F"/" '{print $NF}') --strip 1 >/dev/null 2>&1
+  unzip $(echo $OMEGA_REPO | awk -F"/" '{print $NF}') --strip 1 >/dev/null 2>&1
   compile_error OmegaCoin
   cp bin/omega* /usr/local/bin
   cd ~
