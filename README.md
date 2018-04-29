@@ -4,7 +4,7 @@ Shell script to install an [Omega Core Coin Masternode](http://omegacoin.network
 ***
 ## Installation:  
 ```
-wget -q https://raw.githubusercontent.com/zoldur/OmegaCore/master/omegacore_install.sh
+wget -q https://raw.githubusercontent.com/farizluqman/OmegaCore/master/omegacore_install.sh
 bash omegacore_install.sh
 ```
 ***
